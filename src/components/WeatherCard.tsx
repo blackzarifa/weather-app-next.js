@@ -17,6 +17,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       <CardHeader>
         <CardTitle>{data.city}</CardTitle>
       </CardHeader>
+
       <CardContent>
         <p>Temperature: {data.temperature}°C</p>
         <p>Description: {data.description}</p>
