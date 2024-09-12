@@ -1,5 +1,5 @@
 {
-  "name": "weather-app",
+  "name": "weather-app-next.js",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write"
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "dependencies": {
     "@radix-ui/react-icons": "^1.3.0",
