@@ -25,6 +25,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       <CardContent>
         <p>Temperature: {data.temperature}°C</p>
         <p>Description: {data.description}</p>
+        {data.timestamp && <p>Last updated: {new Date(data.timestamp).toLocaleString()}</p>}
       </CardContent>
     </Card>
   );
