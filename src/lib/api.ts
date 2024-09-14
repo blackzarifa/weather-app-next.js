@@ -1,8 +1,7 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
-const BASE_URL = 'https://api.openweathermap.org/data/3.0';
-const GEO_URL = 'https://api.openweathermap.org/geo/1.0';
+const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
 const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12h
 
@@ -30,26 +29,11 @@ function getFromLocalStorage(key: string): CacheItem | null {
   return item ? JSON.parse(item) : null;
 }
 
-async function getCoordinates(city: string): Promise<{ lat: number; lon: number }> {
-  if (!API_KEY) throw new Error('Weather API key is not defined');
-
-  const response = await fetch(`${GEO_URL}/direct?q=${city}&limit=1&appid=${API_KEY}`);
-  if (!response.ok) throw new Error('Failed to fetch coordinates');
-
-  const data = await response.json();
-  if (data.length === 0) throw new Error('City not found');
-
-  return { lat: data[0].lat, lon: data[0].lon };
-}
-
 async function fetchWeatherData(city: string): Promise<WeatherData> {
   if (!API_KEY) throw new Error('Weather API key is not defined');
 
-  // const { lat, lon } = await getCoordinates(city);
-  const { lat, lon } = { lat: 51.5, lon: -0.12 };
-
   const response = await fetch(
-    `${BASE_URL}/onecall?lat=${lat}&lon=${lon}&exclude=minutely,hourly,daily,alerts&units=metric&appid=${API_KEY}`
+    `${BASE_URL}/weather?q=${city}&units=metric&lang=en&appid=${API_KEY}`
   );
   if (!response.ok) throw new Error('Failed to fetch weather data');
 
@@ -57,7 +41,7 @@ async function fetchWeatherData(city: string): Promise<WeatherData> {
 
   return {
     city: data.name,
-    temperature: Math.round(data.current.temp),
+    temperature: Math.round(data.main.temp),
     description: data.weather[0].description,
     icon: data.weather[0].icon,
     timestamp: Date.now(),
