@@ -9,11 +9,35 @@ export interface WeatherData {
   timestamp: number;
 }
 
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export async function fetchWeatherData(city: string): Promise<WeatherData> {
   if (!API_KEY) throw new Error('Weather API key is not defined');
 
   const response = await fetch(
     `${BASE_URL}/weather?q=${city}&units=metric&lang=en&appid=${API_KEY}`
+  );
+  if (!response.ok) throw new Error('Failed to fetch weather data');
+
+  const data = await response.json();
+
+  return {
+    city: data.name,
+    temperature: Math.round(data.main.temp),
+    description: data.weather[0].description,
+    icon: data.weather[0].icon,
+    timestamp: Date.now(),
+  };
+}
+
+export async function fetchWeatherDataByCoords(coords: Coordinates): Promise<WeatherData> {
+  if (!API_KEY) throw new Error('Weather API key is not defined');
+
+  const response = await fetch(
+    `${BASE_URL}/weather?lat=${coords.latitude}&lon=${coords.longitude}&units=metric&lang=en&appid=${API_KEY}`
   );
   if (!response.ok) throw new Error('Failed to fetch weather data');
 
