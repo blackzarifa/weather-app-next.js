@@ -48,7 +48,14 @@ async function fetchWeatherData(city: string): Promise<WeatherData> {
   };
 }
 
-function useWeatherData(city: string) {
+interface WeatherHookResult {
+  data: WeatherData | null;
+  loading: boolean;
+  error: string | null;
+  refetch: () => Promise<void>;
+}
+
+function useWeatherData(city: string): WeatherHookResult {
   const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -101,5 +108,5 @@ function useWeatherData(city: string) {
   return memoizedData;
 }
 
-export type { WeatherData };
+export type { WeatherData, WeatherHookResult };
 export { useWeatherData };
