@@ -9,7 +9,7 @@ interface WeatherCardProps {
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
   return (
-    <Card className="w-full max-w-[350px]">
+    <Card>
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           {data.city}
