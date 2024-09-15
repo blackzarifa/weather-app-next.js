@@ -9,9 +9,9 @@ interface WeatherCardProps {
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
   return (
-    <Card className="w-[350px]">
+    <Card className="w-full max-w-[350px]">
       <CardHeader>
-        <CardTitle>
+        <CardTitle className="flex items-center justify-between">
           {data.city}
           <Image
             src={`https://openweathermap.org/img/wn/${data.icon}@2x.png`}
@@ -25,7 +25,11 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       <CardContent>
         <p>Temperature: {data.temperature}°C</p>
         <p>Description: {data.description}</p>
-        {data.timestamp && <p>Last updated: {new Date(data.timestamp).toLocaleString()}</p>}
+        {data.timestamp && (
+          <p className="text-sm text-muted-foreground mt-2">
+            Last updated: {new Date(data.timestamp).toLocaleString()}
+          </p>
+        )}
       </CardContent>
     </Card>
   );
