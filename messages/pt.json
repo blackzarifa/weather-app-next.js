@@ -1,0 +1,13 @@
+{
+  "Home": {
+    "title": "Weather App",
+    "inputPlaceholder": "Escreva o nome da cidade",
+    "searchButton": "Buscar",
+    "refreshButton": "Recarregar",
+    "loading": "Carregando...",
+    "error": "Ocorreu um erro",
+    "temperature": "Temperatura",
+    "description": "Descrição",
+    "lastUpdated": "Atualizado"
+  }
+}
