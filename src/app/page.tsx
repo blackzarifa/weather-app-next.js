@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import WeatherCard from '@/components/WeatherCard';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { useWeatherData } from '@/lib/api';
+import { useWeatherData } from '@/hooks/useWeatherData';
 
 const Home: React.FC = () => {
   const { data: weatherData, loading, error, refetch } = useWeatherData('London');
