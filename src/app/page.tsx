@@ -12,22 +12,23 @@ const Home: React.FC = () => {
   const [inputCity, setInputCity] = useState('');
   const { data: weatherData, loading, error, refetch } = useWeatherData(city);
 
-  const changeCity = () => {
-    if (inputCity) {
-      setCity(inputCity);
-      setInputCity('');
-    }
+  const changeCity = (): void => {
+    if (!inputCity) return;
+    setCity(inputCity);
+    setInputCity('');
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 md:p-24">
-      <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-between items-center mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-0">Weather App</h1>
+      <div className="w-full max-w-5xl flex flex-row justify-between items-center mb-8 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-0 mr-auto">Weather App</h1>
+
         <ThemeToggle />
       </div>
 
       <div className="w-full max-w-[350px] mb-8">
         <div className="flex flex-col sm:flex-row gap-2">
+          {/* TODO: Change to a select input */}
           <Input
             type="text"
             value={inputCity}
