@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+import { useLocale } from 'next-intl';
 import WeatherCard from '@/components/WeatherCard';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useWeatherData } from '@/hooks/useWeatherData';
@@ -10,11 +11,19 @@ import { useUserCoordinates } from '@/utils/location';
 import { Coordinates } from '@/lib/api';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from '@/components/ui/select';
 
 export default function Home() {
   const t = useTranslations('Home');
-  console.log('Translations:', t('title'), t('inputPlaceholder'));
   const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
   const [searchParam, setSearchParam] = useState<string | Coordinates>('');
   const [inputCity, setInputCity] = useState('');
   const { coordinates, error: locationError } = useUserCoordinates();
@@ -33,20 +42,28 @@ export default function Home() {
   };
 
   const changeLanguage = (newLocale: string) => {
-    router.push(`/${newLocale}`);
+    const currentPath = pathname.replace(`/${locale}`, '');
+    router.push(`/${newLocale}${currentPath}`);
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center p-4 sm:p-8 md:p-24">
-      <div className="w-full max-w-5xl flex flex-row justify-between items-center mb-8 sm:mb-16">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-0 mr-auto">{t('title')}</h1>
+      <div className="w-full max-w-5xl flex flex-col sm:flex-row justify-between items-center mb-8 sm:mb-16">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 sm:mb-0">{t('title')}</h1>
 
-        <ThemeToggle />
+        <div className="flex items-center space-x-4">
+          <ThemeToggle />
 
-        <select onChange={e => changeLanguage(e.target.value)} className="p-2 rounded">
-          <option value="en">English</option>
-          <option value="pt">Português</option>
-        </select>
+          <Select onValueChange={changeLanguage} defaultValue={locale}>
+            <SelectTrigger className="w-[120px]">
+              <SelectValue placeholder={t('languagePlaceholder')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="pt">Português</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="w-full max-w-[350px] mb-8">
@@ -65,7 +82,7 @@ export default function Home() {
         </div>
       </div>
 
-      {!weatherData && locationError && <p className="text-red-500 mb-4">{t('error')}</p>}
+      {!error && locationError && <p className="text-red-500 mb-4">{t('error')}</p>}
       {error && <p className="text-red-500 justify-center">{t('error')}</p>}
       {loading && <p>{t('loading')}</p>}
 

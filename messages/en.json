@@ -2,6 +2,7 @@
   "Home": {
     "title": "Weather App",
     "inputPlaceholder": "Enter city name",
+    "languagePlaceholder": "Language",
     "searchButton": "Search",
     "refreshButton": "Refresh",
     "loading": "Loading...",
