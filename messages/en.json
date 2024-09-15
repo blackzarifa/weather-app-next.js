@@ -9,6 +9,9 @@
     "error": "An error occurred",
     "temperature": "Temperature",
     "description": "Description",
-    "lastUpdated": "Last updated"
+    "lastUpdated": "Last updated",
+    "darkTheme": "Dark",
+    "lightTheme": "Light",
+    "systemTheme": "System"
   }
 }

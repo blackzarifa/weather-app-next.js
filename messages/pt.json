@@ -9,6 +9,9 @@
     "error": "Ocorreu um erro",
     "temperature": "Temperatura",
     "description": "Descrição",
-    "lastUpdated": "Atualizado"
+    "lastUpdated": "Atualizado",
+    "darkTheme": "Escuro",
+    "lightTheme": "Claro",
+    "systemTheme": "Sistema"
   }
 }

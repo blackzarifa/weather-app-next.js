@@ -24,15 +24,15 @@ export default function Home() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
+
   const [searchParam, setSearchParam] = useState<string | Coordinates>('');
   const [inputCity, setInputCity] = useState('');
   const { coordinates, error: locationError } = useUserCoordinates();
   const { data: weatherData, loading, error, refetch } = useWeatherData(searchParam);
 
   useEffect(() => {
-    if (coordinates) {
-      setSearchParam(coordinates);
-    }
+    if (!coordinates) return;
+    setSearchParam(coordinates);
   }, [coordinates]);
 
   const changeCity = () => {
