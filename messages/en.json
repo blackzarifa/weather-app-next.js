@@ -7,7 +7,7 @@
     "refreshButton": "Refresh",
     "loading": "Loading...",
     "error": "An error occurred",
-    "locationError": "An error occurred to get the current location",
+    "locationError": "An error occurred when getting the current location",
     "temperature": "Temperature",
     "description": "Description",
     "lastUpdated": "Last updated",
