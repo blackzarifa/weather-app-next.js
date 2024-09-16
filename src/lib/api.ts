@@ -21,7 +21,6 @@ export interface ForecastData {
   date: string;
   temperature: number;
   temperatureFahrenheit: number;
-  description: string;
   icon: string;
 }
 
@@ -33,6 +32,18 @@ export interface WeatherForecast {
 
 function celsiusToFahrenheit(celsius: number): number {
   return Math.round((celsius * 9) / 5 + 32);
+}
+
+function mapWeatherForecastList(list: unknown[]): ForecastData[] {
+  return list
+    .filter((_: any, index: number) => index % 8 === 0) // One forecast per day (every 8th item)
+    .slice(0, 5) // Limit to 5 days
+    .map((item: any) => ({
+      date: format(new Date(item.dt * 1000), 'yyyy-MM-dd'),
+      temperature: Math.round(item.main.temp),
+      temperatureFahrenheit: celsiusToFahrenheit(item.main.temp),
+      icon: item.weather[0].icon as string,
+    }));
 }
 
 export async function fetchWeatherData(city: string): Promise<WeatherData> {
@@ -84,20 +95,7 @@ export async function fetchWeatherForecast(city: string): Promise<WeatherForecas
   if (!response.ok) throw new Error('Failed to fetch weather forecast');
 
   const data = await response.json();
-
-  const forecast = data.list
-    .filter((_: any, index: number) => index % 8 === 0) // One forecast per day (every 8th item)
-    .slice(0, 5) // Limit to 5 days
-    .map((item: any) => {
-      const forecastDate = new Date(item.dt * 1000);
-      return {
-        date: format(forecastDate, 'EEE, MMM d'),
-        temperature: Math.round(item.main.temp),
-        temperatureFahrenheit: celsiusToFahrenheit(item.main.temp),
-        description: item.weather[0].description,
-        icon: item.weather[0].icon,
-      };
-    });
+  const forecast = mapWeatherForecastList(data.list);
 
   return {
     city: data.city.name,
@@ -115,17 +113,7 @@ export async function fetchWeatherForecastByCoords(coords: Coordinates): Promise
   if (!response.ok) throw new Error('Failed to fetch weather forecast');
 
   const data = await response.json();
-
-  const forecast = data.list
-    .filter((_: any, index: number) => index % 8 === 0)
-    .slice(0, 5)
-    .map((item: any) => ({
-      date: format(new Date(item.dt * 1000), 'EEE, MMM d'),
-      temperature: Math.round(item.main.temp),
-      temperatureFahrenheit: celsiusToFahrenheit(item.main.temp),
-      description: item.weather[0].description,
-      icon: item.weather[0].icon,
-    }));
+  const forecast = mapWeatherForecastList(data.list);
 
   return {
     city: data.city.name,
