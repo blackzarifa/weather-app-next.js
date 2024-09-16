@@ -28,7 +28,7 @@ export default function Home() {
   const [searchParam, setSearchParam] = useState<string | Coordinates>('');
   const [inputCity, setInputCity] = useState('');
   const { coordinates, error: locationError } = useUserCoordinates();
-  const { data: weatherData, loading, error, refetch } = useWeatherData(searchParam);
+  const { data: weatherData, isLoading, error, refetch } = useWeatherData(searchParam);
 
   useEffect(() => {
     if (!coordinates) return;
@@ -84,13 +84,13 @@ export default function Home() {
 
       {!weatherData && locationError && <p className="text-red-500 mb-4">{t('locationError')}</p>}
       {error && <p className="text-red-500 justify-center">{t('error')}</p>}
-      {loading && <p>{t('loading')}</p>}
+      {isLoading && <p>{t('loading')}</p>}
 
       <div className="w-full max-w-[350px]">
         {weatherData && (
           <>
             <WeatherCard data={weatherData} />
-            <Button onClick={refetch} className="mt-4 w-full">
+            <Button onClick={() => refetch()} className="mt-4 w-full">
               {t('refreshButton')}
             </Button>
           </>
