@@ -1,7 +1,8 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { WeatherData } from '@/lib/api';
+import { useTranslations } from 'next-intl';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface WeatherCardProps {
   data: WeatherData;
@@ -9,6 +10,7 @@ interface WeatherCardProps {
 }
 
 const WeatherCard: React.FC<WeatherCardProps> = ({ data, tempUnit }) => {
+  const t = useTranslations('Home');
   const temperature = tempUnit === 'C' ? data.temperature : data.temperatureFahrenheit;
 
   return (
@@ -32,7 +34,7 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data, tempUnit }) => {
         <p>Description: {data.description}</p>
         {data.timestamp && (
           <p className="text-sm text-muted-foreground mt-2">
-            Last updated: {new Date(data.timestamp).toLocaleString()}
+            {t('lastUpdated')}: {new Date(data.timestamp).toLocaleString()}
           </p>
         )}
       </CardContent>
