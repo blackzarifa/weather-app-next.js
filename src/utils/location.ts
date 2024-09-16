@@ -15,8 +15,6 @@ export function useUserCoordinates() {
 
   useEffect(() => {
     if ('geolocation' in navigator) {
-      console.log('test-1');
-      console.log(navigator.geolocation);
       navigator.geolocation.getCurrentPosition(
         position => {
           const { latitude, longitude } = position.coords;
