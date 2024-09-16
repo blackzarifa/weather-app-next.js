@@ -9,10 +9,13 @@
     "error": "Ocorreu um erro",
     "locationError": "Ocorreu um erro para buscar a localização atual",
     "temperature": "Temperatura",
-    "description": "Descrição",
     "lastUpdated": "Atualizado",
+    "forecast": "Previsão do Tempo",
     "darkTheme": "Escuro",
     "lightTheme": "Claro",
     "systemTheme": "Sistema"
+  },
+  "Locale": {
+    "lang": "pt"
   }
 }

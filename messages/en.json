@@ -9,10 +9,13 @@
     "error": "An error occurred",
     "locationError": "An error occurred when getting the current location",
     "temperature": "Temperature",
-    "description": "Description",
     "lastUpdated": "Last updated",
+    "forecast": "Weather Forcast",
     "darkTheme": "Dark",
     "lightTheme": "Light",
     "systemTheme": "System"
+  },
+  "Locale": {
+    "lang": "en"
   }
 }
