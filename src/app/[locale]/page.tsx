@@ -82,7 +82,7 @@ export default function Home() {
         </div>
       </div>
 
-      {!error && locationError && <p className="text-red-500 mb-4">{t('error')}</p>}
+      {!weatherData && locationError && <p className="text-red-500 mb-4">{t('locationError')}</p>}
       {error && <p className="text-red-500 justify-center">{t('error')}</p>}
       {loading && <p>{t('loading')}</p>}
 
