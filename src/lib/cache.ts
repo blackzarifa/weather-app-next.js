@@ -1,9 +1,9 @@
-import { WeatherData } from '@/lib/api';
+import { WeatherData, WeatherForecast } from '@/lib/api';
 
 export const CACHE_DURATION = 12 * 60 * 60 * 1000; // 12h
 
 export interface CacheItem {
-  data: WeatherData;
+  data: { current: WeatherData; forecast: WeatherForecast };
   timestamp: number;
 }
 

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import WeatherCard from '@/components/WeatherCard';
+import ForecastCard from '@/components/ForecastCard';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { useWeatherData } from '@/hooks/useWeatherData';
 import { useUserCoordinates } from '@/utils/location';
@@ -76,30 +77,42 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full max-w-[350px] mb-8">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <Input
-            type="text"
-            value={inputCity}
-            onChange={e => setInputCity(e.target.value)}
-            placeholder={t('inputPlaceholder')}
-            className="flex-grow"
-          />
+      <div className="w-full max-w-[350px] lg:max-w-[600px]">
+        <div className="w-full mb-8">
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Input
+              type="text"
+              value={inputCity}
+              onChange={e => setInputCity(e.target.value)}
+              placeholder={t('inputPlaceholder')}
+              className="flex-grow"
+            />
 
-          <Button onClick={changeCity} className="w-full sm:w-auto">
-            {t('searchButton')}
-          </Button>
+            <Button onClick={changeCity} className="w-full sm:w-auto">
+              {t('searchButton')}
+            </Button>
+          </div>
         </div>
-      </div>
 
-      {!weatherData && locationError && <p className="text-red-500 mb-4">{t('locationError')}</p>}
-      {error && <p className="text-red-500 justify-center">{t('error')}</p>}
-      {isLoading && <p>{t('loading')}</p>}
+        <div className="flex flex-col items-center">
+          {!weatherData && locationError && (
+            <p className="text-red-500 mb-4">{t('locationError')}</p>
+          )}
+          {error && <p className="text-red-500">{t('error')}</p>}
+          {isLoading && <p>{t('loading')}</p>}
+        </div>
 
-      <div className="w-full max-w-[350px]">
         {weatherData && (
           <>
-            <WeatherCard data={weatherData} tempUnit={tempUnit} />
+            <WeatherCard data={weatherData.current} tempUnit={tempUnit} />
+
+            <h2 className="text-2xl font-semibold mt-8 mb-4">{t('forecast')}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              {weatherData.forecast.forecast.map((day, index) => (
+                <ForecastCard key={index} data={day} tempUnit={tempUnit} />
+              ))}
+            </div>
+
             <Button onClick={() => refetch()} className="mt-4 w-full">
               {t('refreshButton')}
             </Button>
