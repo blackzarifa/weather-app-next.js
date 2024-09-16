@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Print Screens
 
-## Getting Started
+![Dark themed app with the weather forecast for London](images/forecast_london.png)
+![Light themed app with the weather forecast for Miami](images/mobile_forecast_miami.png)
 
-First, run the development server:
+# English
+
+## Usage
+
+- The app by default will try to fetch the weather and forecast from your current location.
+- You can change the city by entering the city name in the search bar.
+
+## Running the development server:
+
+1. Clone the repository.
+
+2. Intall the dependencies:
+
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+3. Create a `.env.local` file in the root directory and add your OpenWeatherMap API key:
+
+```bash
+NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+```
+
+4. Run the development server:
 
 ```bash
 npm run dev
 # or
+pnpm dev
+# or
 yarn dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) with your browser.
+
+# Português
+
+## Uso
+
+- Por padrão, o app tenta buscar informações da sua localização.
+- É possível mudar a localidade escrevendo o nome da cidade na barra de pesquisa.
+
+## Running the development server:
+
+1. Clonar o repositório.
+
+2. Instalar as dependências:
+
+```bash
+npm install
+# or
+pnpm install
+# or
+yarn install
+```
+
+3. Criar um arquivo `.env.local` na pasta raíz e adicionar a uma chave da OpenWeatherMap API:
+
+```bash
+NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+```
+
+4. Rodar o ambiente de desenvolvimento:
+
+```bash
+npm run dev
 # or
 pnpm dev
 # or
-bun dev
+yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. Abrir [http://localhost:3000](http://localhost:3000) no seu navegador.
