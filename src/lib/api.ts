@@ -21,6 +21,7 @@ export interface ForecastData {
   date: string;
   temperature: number;
   temperatureFahrenheit: number;
+  description: string;
   icon: string;
 }
 
@@ -42,7 +43,8 @@ function mapWeatherForecastList(list: unknown[]): ForecastData[] {
       date: format(new Date(item.dt * 1000), 'yyyy-MM-dd'),
       temperature: Math.round(item.main.temp),
       temperatureFahrenheit: celsiusToFahrenheit(item.main.temp),
-      icon: item.weather[0].icon as string,
+      description: item.weather[0].description,
+      icon: item.weather[0].icon,
     }));
 }
 
