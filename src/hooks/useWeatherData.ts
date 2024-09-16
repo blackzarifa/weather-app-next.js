@@ -15,7 +15,9 @@ export function useWeatherData(cityOrCoords: string | Coordinates) {
       const cachedData = getFromLocalStorage(cacheKey);
 
       if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-        return cachedData.data;
+        return {
+          ...cachedData.data,
+        };
       }
 
       const fetchedData =

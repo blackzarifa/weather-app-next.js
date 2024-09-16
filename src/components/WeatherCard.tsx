@@ -5,9 +5,12 @@ import { WeatherData } from '@/lib/api';
 
 interface WeatherCardProps {
   data: WeatherData;
+  tempUnit: 'C' | 'F';
 }
 
-const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
+const WeatherCard: React.FC<WeatherCardProps> = ({ data, tempUnit }) => {
+  const temperature = tempUnit === 'C' ? data.temperature : data.temperatureFahrenheit;
+
   return (
     <Card>
       <CardHeader>
@@ -23,7 +26,9 @@ const WeatherCard: React.FC<WeatherCardProps> = ({ data }) => {
       </CardHeader>
 
       <CardContent>
-        <p>Temperature: {data.temperature}°C</p>
+        <p>
+          Temperature: {temperature} º{tempUnit}
+        </p>
         <p>Description: {data.description}</p>
         {data.timestamp && (
           <p className="text-sm text-muted-foreground mt-2">

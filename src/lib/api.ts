@@ -4,6 +4,7 @@ const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 export interface WeatherData {
   city: string;
   temperature: number;
+  temperatureFahrenheit: number;
   description: string;
   icon: string;
   timestamp: number;
@@ -12,6 +13,10 @@ export interface WeatherData {
 export interface Coordinates {
   latitude: number;
   longitude: number;
+}
+
+function celsiusToFahrenheit(celsius: number): number {
+  return Math.round((celsius * 9) / 5 + 32);
 }
 
 export async function fetchWeatherData(city: string): Promise<WeatherData> {
@@ -27,6 +32,7 @@ export async function fetchWeatherData(city: string): Promise<WeatherData> {
   return {
     city: data.name,
     temperature: Math.round(data.main.temp),
+    temperatureFahrenheit: celsiusToFahrenheit(data.main.temp),
     description: data.weather[0].description,
     icon: data.weather[0].icon,
     timestamp: Date.now(),
@@ -46,6 +52,7 @@ export async function fetchWeatherDataByCoords(coords: Coordinates): Promise<Wea
   return {
     city: data.name,
     temperature: Math.round(data.main.temp),
+    temperatureFahrenheit: celsiusToFahrenheit(data.main.temp),
     description: data.weather[0].description,
     icon: data.weather[0].icon,
     timestamp: Date.now(),

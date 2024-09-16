@@ -27,6 +27,8 @@ export default function Home() {
 
   const [searchParam, setSearchParam] = useState<string | Coordinates>('');
   const [inputCity, setInputCity] = useState('');
+  const [tempUnit, setTempUnit] = useState<'C' | 'F'>('C');
+
   const { coordinates, error: locationError } = useUserCoordinates();
   const { data: weatherData, isLoading, error, refetch } = useWeatherData(searchParam);
 
@@ -39,6 +41,10 @@ export default function Home() {
     if (!inputCity) return;
     setSearchParam(inputCity);
     setInputCity('');
+  };
+
+  const toggleTempUnit = () => {
+    setTempUnit(prevUnit => (prevUnit === 'C' ? 'F' : 'C'));
   };
 
   const changeLanguage = (newLocale: string) => {
@@ -63,6 +69,10 @@ export default function Home() {
               <SelectItem value="pt">Português</SelectItem>
             </SelectContent>
           </Select>
+
+          <Button onClick={toggleTempUnit} variant="outline">
+            {tempUnit === 'C' ? '°C' : '°F'}
+          </Button>
         </div>
       </div>
 
@@ -89,7 +99,7 @@ export default function Home() {
       <div className="w-full max-w-[350px]">
         {weatherData && (
           <>
-            <WeatherCard data={weatherData} />
+            <WeatherCard data={weatherData} tempUnit={tempUnit} />
             <Button onClick={() => refetch()} className="mt-4 w-full">
               {t('refreshButton')}
             </Button>
