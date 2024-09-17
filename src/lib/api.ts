@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, addDays, startOfDay, isSameDay } from 'date-fns';
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
@@ -37,10 +37,10 @@ function celsiusToFahrenheit(celsius: number): number {
 
 function mapWeatherForecastList(list: unknown[]): ForecastData[] {
   return list
-    .filter((_: any, index: number) => index % 8 === 0) // One forecast per day (every 8th item)
+    .filter((_: unknown, index: number) => index % 8 === 0) // One forecast per day (every 8th item)
     .slice(0, 5) // Limit to 5 days
     .map((item: any) => ({
-      date: format(new Date(item.dt * 1000), 'yyyy-MM-dd'),
+      date: item.dt_txt.split(' ')[0],
       temperature: Math.round(item.main.temp),
       temperatureFahrenheit: celsiusToFahrenheit(item.main.temp),
       description: item.weather[0].description,

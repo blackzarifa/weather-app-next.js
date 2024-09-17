@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ForecastData } from '@/lib/api';
 import { useTranslations } from 'next-intl';
 import { format } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 
 interface ForecastCardProps {
   data: ForecastData;
@@ -14,10 +15,9 @@ const ForecastCard: React.FC<ForecastCardProps> = ({ data, tempUnit }) => {
   const t = useTranslations('Locale');
 
   const temperature = tempUnit === 'C' ? data.temperature : data.temperatureFahrenheit;
-  const formattedDate = format(
-    new Date(data.date),
-    t('lang') === 'en' ? 'eee, MMM dd' : 'dd/MM/yyyy'
-  );
+
+  const zonedDate = toZonedTime(new Date(data.date), 'UTC');
+  const formattedDate = format(zonedDate, t('lang') === 'en' ? 'eee, MMM dd' : 'dd/MM/yyyy');
 
   return (
     <Card className="w-full">
