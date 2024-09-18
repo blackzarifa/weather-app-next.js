@@ -73,9 +73,9 @@ NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
 
 ```bash
 npm run dev
-# or
+# ou
 pnpm dev
-# or
+# ou
 yarn dev
 ```
 
