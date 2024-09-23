@@ -57,9 +57,9 @@ yarn dev
 
 ```bash
 npm install
-# or
+# ou
 pnpm install
-# or
+# ou
 yarn install
 ```
 
