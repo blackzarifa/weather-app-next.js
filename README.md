@@ -66,7 +66,7 @@ yarn install
 3. Criar um arquivo `.env.local` na pasta raíz e adicionar a uma chave da OpenWeatherMap API:
 
 ```bash
-NEXT_PUBLIC_WEATHER_API_KEY=your_api_key_here
+NEXT_PUBLIC_WEATHER_API_KEY=chave_da_api_aqui
 ```
 
 4. Rodar o ambiente de desenvolvimento:
